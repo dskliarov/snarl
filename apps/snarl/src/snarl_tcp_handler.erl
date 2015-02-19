@@ -210,7 +210,9 @@ message({user, auth, Realm, User, Pass, OTP}, State) when
                   {error, not_found};
               {ok, UUID}  ->
                   {ok, Token} = snarl_token:add(Realm, UUID),
-                  {ok, {token, Token}}
+                  {ok, {token, Token}};
+              key_required ->
+                  {error, not_found}
           end,
     {reply,
      Res,
